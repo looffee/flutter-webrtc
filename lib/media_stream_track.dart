@@ -54,6 +54,15 @@ class MediaStreamTrack {
     );
   }
 
+  void enableCallMode() async {
+    var enable = true;
+    print('MediaStreamTrack:enableCallMode');
+    await _channel.invokeMethod(
+      'enableCallMode',
+      <String, dynamic>{'trackId': _trackId, 'enable': enable},
+    );
+  }
+
   captureFrame(String filePath) =>
     _channel.invokeMethod(
       'captureFrame',

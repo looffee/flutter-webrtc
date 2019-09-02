@@ -319,6 +319,11 @@ public class FlutterWebRTCPlugin implements MethodCallHandler {
             boolean enable = call.argument("enable");
             mediaStreamTrackEnableSpeakerphone(trackId, enable);
             result.success(null);
+        } else if (call.method.equals("enableCallMode")) {
+            String trackId = call.argument("trackId");
+            boolean enable = call.argument("enable");
+            mediaStreamTrackCallMode(trackId, enable);
+            result.success(null);
         } else if(call.method.equals("getDisplayMedia")) {
             Map<String, Object> constraints = call.argument("constraints");
             ConstraintsMap constraintsMap = new ConstraintsMap(constraints);
@@ -928,6 +933,17 @@ public class FlutterWebRTCPlugin implements MethodCallHandler {
             audioManager.setSpeakerphoneOn(enabled);
         } catch (Exception e) {
             Log.e(TAG, "setSpeakerphoneOn(): error", e);
+        }
+    }
+
+    public void mediaStreamTrackCallMode(final String id, boolean enabled) {
+        AudioManager audioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
+
+        try {
+            audioManager.setMode(AudioManager.MODE_IN_CALL);
+            audioManager.setBluetoothScoOn(true);
+        } catch (Exception e) {
+            Log.e(TAG, "setCallMode(): error", e);
         }
     }
 

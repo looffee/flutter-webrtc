@@ -397,7 +397,11 @@
                             error:nil];
         [audioSession setActive:YES error:nil];
         result(nil);
-    }else if ([@"getLocalDescription" isEqualToString:call.method]) {
+    } else if ([@"enableCallMode" isEqualToString:call.method]) {
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        [audioSession setMode:AVAudioSession.Mode.videoChat];
+        result(nil);
+    } else if ([@"getLocalDescription" isEqualToString:call.method]) {
         NSDictionary* argsMap = call.arguments;
         NSString* peerConnectionId = argsMap[@"peerConnectionId"];
         RTCPeerConnection *peerConnection = self.peerConnections[peerConnectionId];
