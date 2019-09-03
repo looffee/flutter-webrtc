@@ -393,13 +393,13 @@
         NSNumber* enable = argsMap[@"enable"];
         AVAudioSession *audioSession = [AVAudioSession sharedInstance];
         [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord
-                      withOptions:enable.boolValue ? AVAudioSessionCategoryOptionDefaultToSpeaker : 0
+                      withOptions:enable.boolValue ? AVAudioSessionCategoryOptionDefaultToSpeaker : [audioSession categoryOptions]
                             error:nil];
         [audioSession setActive:YES error:nil];
         result(nil);
     } else if ([@"enableCallMode" isEqualToString:call.method]) {
         AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-        [audioSession setMode:AVAudioSession.Mode.videoChat];
+        [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord mode:AVAudioSessionModeVoiceChat options:AVAudioSessionCategoryOptionAllowBluetooth error:nil];
         result(nil);
     } else if ([@"getLocalDescription" isEqualToString:call.method]) {
         NSDictionary* argsMap = call.arguments;

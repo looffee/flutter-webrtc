@@ -13,3 +13,4 @@ example/android/gradle*
 WorkspaceSettings.xcsettings
 example/.flutter-plugins
 example/android/local.properties
+example/ios/Flutter/flutter_export_environment.sh
