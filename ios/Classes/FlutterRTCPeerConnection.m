@@ -272,7 +272,7 @@
  * @param src The JavaScript object which defines constraint keys and values and
  * which is to be parsed into the specified <tt>dst</tt>.
  * @param dst The <tt>NSMutableDictionary</tt> into which the constraint keys
- * and values defined by <tt>src</tt> are to be written in a format suitable for
+ * and values defined by <tt>src</tt> are to be written in a format suitable for
  * the initialization of a <tt>RTCMediaConstraints</tt> instance.
  */
 - (void)parseJavaScriptConstraints:(NSDictionary *)src
@@ -396,7 +396,14 @@
         [videoTracks addObject:@{@"id": track.trackId, @"kind": track.kind, @"label": track.trackId, @"enabled": @(track.isEnabled), @"remote": @(YES), @"readyState": @"live"}];
     }
     
-    NSString *streamId = stream.streamId;
+    NSString *streamId;
+    
+    if ([@"janus" isEqualToString:stream.streamId]) {
+        streamId = [[NSUUID UUID] UUIDString];
+    } else {
+        streamId = stream.streamId;
+    }
+ 
     peerConnection.remoteStreams[streamId] = stream;
     
     FlutterEventSink eventSink = peerConnection.eventSink;
