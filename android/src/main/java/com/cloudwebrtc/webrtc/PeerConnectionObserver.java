@@ -267,6 +267,10 @@ class PeerConnectionObserver implements PeerConnection.Observer, EventChannel.St
             }
         }
 
+        if ("janus".equals(streamId)) {
+            streamId = plugin.getNextStreamUUID();
+        }
+
         if (streamUID == null){
             streamUID = plugin.getNextStreamUUID();
             remoteStreams.put(streamId, mediaStream);
